@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediWatch – Patient Readmission</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384XQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>
+        body { background-color: #eff2f9; }
+        .page-title { color: #1b2d6b; font-weight: 700; }
+        .section-title {
+            color: #363e75;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-bottom: 2px solid #363e75;
+            padding-bottom: 0.35rem;
+            margin-bottom: 1rem;
+        }
+        .form-card {
+            background: #fff;
+            border: 1px solid #dedede;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .result-card {
+            background: #fff;
+            border: 1px solid #dedede;
+            min-height: 200px;
+            padding: 1rem;
+        }
+        label { font-weight: 500; color: #1b2d6b; }
+        .form-control, .custom-select, .btn {
+            border-radius: 0;
+            border: 1px solid #363e75;
+            box-shadow: none;
+        }
+        .form-control:focus, .custom-select:focus {
+            border-color: #007bff;
+            box-shadow: none;
+        }
+        #loading {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 9999;
+        }
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -30px 0 0 -30px;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #363e75;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container py-4">
+    <h2 class="page-title text-center mb-4">MediWatch Patient Readmission Predictor</h2>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <form id="patient-form">
+                <div class="form-card">
+                    <h5 class="section-title">Demographics</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="race">Race</label>
+                            <select class="custom-select" id="race" name="race" required>
+                                <option value="">Select…</option>
+                                <option value="Caucasian">Caucasian</option>
+                                <option value="AfricanAmerican">African American</option>
+                                <option value="Asian">Asian</option>
+                                <option value="Hispanic">Hispanic</option>
+                                <option value="Other">Other</option>
+                                <option value="?">Unknown</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="gender">Gender</label>
+                            <select class="custom-select" id="gender" name="gender" required>
+                                <option value="">Select…</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Unknown/Other">Unknown / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="age">Age</label>
+                            <select class="custom-select" id="age" name="age" required>
+                                <option value="">Select…</option>
+                                <option value="[0-10)">[0-10)</option>
+                                <option value="[10-20)">[10-20)</option>
+                                <option value="[20-30)">[20-30)</option>
+                                <option value="[30-40)">[30-40)</option>
+                                <option value="[40-50)">[40-50)</option>
+                                <option value="[50-60)">[50-60)</option>
+                                <option value="[60-70)">[60-70)</option>
+                                <option value="[70-80)">[70-80)</option>
+                                <option value="[80-90)">[80-90)</option>
+                                <option value="[90-100)">[90-100)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h5 class="section-title">Admission &amp; Clinical</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="admission_type_id">Admission Type</label>
+                            <select class="custom-select" id="admission_type_id" name="admission_type_id" required>
+                                <option value="">Select…</option>
+                                <option value="1">1 – Emergency</option>
+                                <option value="2">2 – Urgent</option>
+                                <option value="3">3 – Elective</option>
+                                <option value="4">4 – Newborn</option>
+                                <option value="5">5 – Not Available</option>
+                                <option value="6">6 – NULL</option>
+                                <option value="7">7 – Trauma Center</option>
+                                <option value="8">8 – Not Mapped</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="admission_source_id">Admission Source ID</label>
+                            <input type="number" class="form-control" id="admission_source_id"
+                                   name="admission_source_id" min="1" max="25" placeholder="1–25" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="discharge_disposition_id">Discharge Disposition ID</label>
+                            <input type="number" class="form-control" id="discharge_disposition_id"
+                                   name="discharge_disposition_id" min="1" max="30" placeholder="1–30" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="num_lab_procedures">Number of Lab Procedures</label>
+                            <input type="number" class="form-control" id="num_lab_procedures"
+                                   name="num_lab_procedures" min="0" placeholder="e.g. 41" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="num_medications">Number of Medications</label>
+                            <input type="number" class="form-control" id="num_medications"
+                                   name="num_medications" min="1" placeholder="e.g. 14" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="num_procedures">Number of Procedures</label>
+                            <input type="number" class="form-control" id="num_procedures"
+                                   name="num_procedures" min="0" placeholder="e.g. 0" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="number_diagnoses">Number of Diagnoses</label>
+                            <input type="number" class="form-control" id="number_diagnoses"
+                                   name="number_diagnoses" min="1" placeholder="e.g. 9" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="number_emergency">Prior Emergency Visits</label>
+                            <input type="number" class="form-control" id="number_emergency"
+                                   name="number_emergency" min="0" placeholder="e.g. 0" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number_inpatient">Prior Inpatient Visits</label>
+                            <input type="number" class="form-control" id="number_inpatient"
+                                   name="number_inpatient" min="0" placeholder="e.g. 1" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="number_outpatient">Prior Outpatient Visits</label>
+                            <input type="number" class="form-control" id="number_outpatient"
+                                   name="number_outpatient" min="0" placeholder="e.g. 0" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="time_in_hospital">Time in Hospital (days)</label>
+                            <input type="number" class="form-control" id="time_in_hospital"
+                                   name="time_in_hospital" min="1" max="14" placeholder="e.g. 3" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h5 class="section-title">Diagnoses</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="diag_1">Diagnosis 1</label>
+                            <input type="text" class="form-control" id="diag_1" name="diag_1"
+                                   placeholder="e.g. 250.83" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="diag_2">Diagnosis 2</label>
+                            <input type="text" class="form-control" id="diag_2" name="diag_2"
+                                   placeholder="e.g. 401.9">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="diag_3">Diagnosis 3</label>
+                            <input type="text" class="form-control" id="diag_3" name="diag_3"
+                                   placeholder="e.g. V27">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h5 class="section-title">Medications</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="metformin">Metformin</label>
+                            <select class="custom-select med-select" id="metformin" name="metformin" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="repaglinide">Repaglinide</label>
+                            <select class="custom-select med-select" id="repaglinide" name="repaglinide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="nateglinide">Nateglinide</label>
+                            <select class="custom-select med-select" id="nateglinide" name="nateglinide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="chlorpropamide">Chlorpropamide</label>
+                            <select class="custom-select med-select" id="chlorpropamide" name="chlorpropamide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glimepiride">Glimepiride</label>
+                            <select class="custom-select med-select" id="glimepiride" name="glimepiride" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="acetohexamide">Acetohexamide</label>
+                            <select class="custom-select med-select" id="acetohexamide" name="acetohexamide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glipizide">Glipizide</label>
+                            <select class="custom-select med-select" id="glipizide" name="glipizide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glyburide">Glyburide</label>
+                            <select class="custom-select med-select" id="glyburide" name="glyburide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="tolbutamide">Tolbutamide</label>
+                            <select class="custom-select med-select" id="tolbutamide" name="tolbutamide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pioglitazone">Pioglitazone</label>
+                            <select class="custom-select med-select" id="pioglitazone" name="pioglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="rosiglitazone">Rosiglitazone</label>
+                            <select class="custom-select med-select" id="rosiglitazone" name="rosiglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="acarbose">Acarbose</label>
+                            <select class="custom-select med-select" id="acarbose" name="acarbose" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="miglitol">Miglitol</label>
+                            <select class="custom-select med-select" id="miglitol" name="miglitol" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="troglitazone">Troglitazone</label>
+                            <select class="custom-select med-select" id="troglitazone" name="troglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="tolazamide">Tolazamide</label>
+                            <select class="custom-select med-select" id="tolazamide" name="tolazamide" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="insulin">Insulin</label>
+                            <select class="custom-select med-select" id="insulin" name="insulin" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glyburide-metformin">Glyburide-Metformin</label>
+                            <select class="custom-select med-select" id="glyburide-metformin" name="glyburide-metformin" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glipizide-metformin">Glipizide-Metformin</label>
+                            <select class="custom-select med-select" id="glipizide-metformin" name="glipizide-metformin" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="glimepiride-pioglitazone">Glimepiride-Pioglitazone</label>
+                            <select class="custom-select med-select" id="glimepiride-pioglitazone" name="glimepiride-pioglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="metformin-rosiglitazone">Metformin-Rosiglitazone</label>
+                            <select class="custom-select med-select" id="metformin-rosiglitazone" name="metformin-rosiglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="metformin-pioglitazone">Metformin-Pioglitazone</label>
+                            <select class="custom-select med-select" id="metformin-pioglitazone" name="metformin-pioglitazone" required>
+                                <option value="No">No</option>
+                                <option value="Steady">Steady</option>
+                                <option value="Up">Up</option>
+                                <option value="Down">Down</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h5 class="section-title">Other</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="change">Medication Change</label>
+                            <select class="custom-select" id="change" name="change" required>
+                                <option value="No">No</option>
+                                <option value="Ch">Change</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="diabetesMed">Diabetes Medication</label>
+                            <select class="custom-select" id="diabetesMed" name="diabetesMed" required>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">Predict Readmission</button>
+            </form>
+        </div>
+
+        <div class="col-lg-4">
+            <h5 class="section-title">Prediction Result</h5>
+            <div class="result-card">
+                <pre id="result-output" class="mb-0 text-muted">Submit the form to see a prediction.</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loading"><div class="loader"></div></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script>
+    var FIELD_NAMES = [
+        'race', 'gender', 'age',
+        'admission_type_id', 'admission_source_id', 'discharge_disposition_id',
+        'num_lab_procedures', 'num_medications', 'num_procedures', 'number_diagnoses',
+        'number_emergency', 'number_inpatient', 'number_outpatient', 'time_in_hospital',
+        'diag_1', 'diag_2', 'diag_3',
+        'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride',
+        'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone',
+        'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'insulin',
+        'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone',
+        'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed'
+    ];
+
+    var NUMERIC_FIELDS = [
+        'admission_type_id', 'admission_source_id', 'discharge_disposition_id',
+        'num_lab_procedures', 'num_medications', 'num_procedures', 'number_diagnoses',
+        'number_emergency', 'number_inpatient', 'number_outpatient', 'time_in_hospital'
+    ];
+
+    function collectFormData() {
+        var data = {};
+        FIELD_NAMES.forEach(function (name) {
+            var value = document.querySelector('[name="' + name + '"]').value;
+            data[name] = NUMERIC_FIELDS.indexOf(name) !== -1 ? Number(value) : value;
+        });
+        return data;
+    }
+
+    document.getElementById('patient-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var payload = collectFormData();
+        document.getElementById('loading').style.display = 'block';
+
+        fetch('/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+            document.getElementById('result-output').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(function (error) {
+            document.getElementById('result-output').textContent = 'Error: ' + error.message;
+        })
+        .finally(function () {
+            document.getElementById('loading').style.display = 'none';
+        });
+    });
+</script>
+</body>
+</html>
