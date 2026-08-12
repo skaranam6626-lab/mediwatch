@@ -5,7 +5,6 @@ from airflow.sensors.s3_key_sensor import S3KeySensor
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 import os
-from config import HOME_DIR
 
 default_args={
     'ownwer': 'airflow',

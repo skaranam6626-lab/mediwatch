@@ -74,7 +74,7 @@ def preprocess_data():
   axes[1].set_title('Distribution of value counts for target variable Loan Status')
 
   plt.tight_layout()
-  plt.show()
+  #plt.show()
 
   """Observation:
   1. Target is slightly tilted towards 'NO', else looks like an even distribution.
@@ -136,9 +136,8 @@ def preprocess_data():
       fig.delaxes(axes[j])
 
   plt.tight_layout()
-  plt.show()
-  #dfEDA=dfDataClean.copy()
-
+  #plt.show()
+  
   objectCols = ['race', 'gender', 'age','diag_1','diag_2','diag_3','metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed']
 
 
@@ -166,17 +165,18 @@ def preprocess_data():
   dfDataCleanCorr.drop(objectCols, axis=1, inplace=True)
   plt.figure(figsize=(50,25))
   sns.heatmap(dfDataCleanCorr.corr(), annot=True, cmap='coolwarm')
-  plt.show()
+  #plt.show()
 
   """Observation:
   1. Heatmap does not show any strong co-relation between columns
 
   """
 
-  dfDataClean.to_csv(os.getenv('PROCESSED_OUTPUT_FILE_PATH'), index=False)
+  dfDataClean.to_csv(os.getenv('PREPROCESSED_FILE_PATH'), index=False)
 
   """Observation:
   1. Heatmap does not show any strong co-relation between columns
 
   """
-preprocess_data()
+if __name__ == "__main__":
+  preprocess_data()
