@@ -1,0 +1,17 @@
+name: Fraud ML CI/CD
+on: [push, pull_request]
+jobs: 
+  build-and-train:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      - name: install dependencies
+         run: | 
+          pip install -r requirements.txt
+      - name: Download data
+        run: bash scripts/download.sh
+      - name: pre-processing model
+        run: bash run_preprocessing.sh
+      - name: Train and save model
+        run: bash run_training.sh
+ 
