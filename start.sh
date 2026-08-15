@@ -4,9 +4,12 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
-#Run pre-processing..
+#Download data:
 export HOME_PATH="/Users/sk-training/main/src/mediwatch"
-export RAW_INPUT_FILE_PATH=$HOME_PATH"/data/diabetic_data_raw.csv"
+./scripts/download.sh
+
+#Run pre-processing..
+export RAW_INPUT_FILE_PATH=$HOME_PATH"/data/diabetic_data.csv"
 export PREPROCESSED_FILE_PATH=$HOME_PATH"/data/diabetic_data_processed.csv"
 python data_preprocessing_scripts/preprocessing.py
 
@@ -34,8 +37,7 @@ export MAX_DEPTH=10
 python3 models/scripts/trainer.py
 
 #run preprocessing and training from docker
-docker build -t mediwatch-preprocessing-train -f dockerScripts/dockerfile-preprocessing . \ 
-&& docker run -p 8811:8811 mediwatch-preprocessing-train 
+docker build -t mediwatch-preprocessing-train -f dockerScripts/dockerfile-preprocessing . && docker run -p 8811:8811 mediwatch-preprocessing-train 
 curl http://127.0.0.1:8811/preprocess
 curl http://127.0.0.1:8811/train
 

@@ -28,7 +28,7 @@ app.add_middleware(
 async def home(request: Request):
     try:
         preprocess_data()
-        result={"Status": "{datetime.now().timestamp()}-preprocessing was run successfully"}
+        result={"Status": f"{datetime.now().timestamp()}-preprocessing was run successfully"}
         return JSONResponse(content=result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -38,7 +38,7 @@ async def home(request: Request):
 async def invokeTrain():
     try:
         train()
-        result={"Status": "{datetime.now().timestamp()}-training was run successfully." }
+        result={"Status": f"{datetime.now().timestamp()}-training was run successfully." }
         return JSONResponse(content=result)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
