@@ -33,8 +33,6 @@ The pipeline tracks these metrics automatically:
 3. All logs will be logged in app.log
 
 
-### Run below scripts to test the model 
-
 ## Run MediWatch from Command prompt
 # Download the dataset
     export HOME_PATH="./mediwatch"
