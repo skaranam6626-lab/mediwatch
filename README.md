@@ -18,7 +18,6 @@ The automated pipeline performs these steps on every code change:
 - Training parameters
 - Data preprocessing steps
 - Model artifacts
-
 ---
 
 ## 📊 Model Performance Tracking
@@ -32,18 +31,41 @@ The pipeline tracks these metrics automatically:
 All metrics are logged to MLflow for experiment comparison.
 
 
-## Run below scripts to test model 
+## Run below scripts to test the model 
 
 $HOME_PATH : is uppermost parent directory of the project. Defaults to current directory. Ensure all child folders are under this directory.
 
-# download the dataset
-    ./scripts/download.sh
+All logs will be logged in app.log
 
-#run preprocessing
-    ./scripts/run_preprocessing.sh
+##************* Run MediWatch from Command prompt***********************##########
+# download the dataset
+    export HOME_PATH="./mediwatch"
+    cd $HOME_PATH
+    ./wrapperScripts/download.sh
+
+#run preprocessing: performs eda, feature engineering
+    ./wrapperScripts/run_preprocessing.sh
+
+#run mlflow and raytune in different containers
+    docker compose -f dockerScripts/dockercompose-raytune.yml up -d
 
 #run trainer
-    ./scripts/run_trainer.sh
+    ./wrapperScripts/run_trainer.sh
 
-#run webapp
-    ./scripts/run_webApp.sh
+#run tuner
+    ./wrapperScripts/run_tuner.sh
+
+#run mediwatch from command prompt
+    ./wrapperScripts/run_webApp.sh
+
+##************* Run MediWatch from Docker container***********************##########
+docker build -t mediwatch-webapp -f dockerScripts/dockerfile-mediwatch . && docker run -p 8800:8800 mediwatch-webapp
+Model for prediction: http://127.0.0.1:8800/
+Model Monitoring: http://127.0.0.1:8800/monitoring
+
+##************* Run MediWatch Airflow container ***********************##########
+docker compose -f airflow/dockercompose-airflow down && docker compose -f airflow/dockercompose-airflow up -d
+
+Login airflow at: http://127.0.0.1:8080/
+Run dag: launch_mediwatch_trainer
+
