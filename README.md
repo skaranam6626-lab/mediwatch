@@ -57,13 +57,12 @@ The pipeline tracks these metrics automatically:
     ./wrapperScripts/run_webApp.sh
 
 # Run MediWatch from Docker container
-docker build -t mediwatch-webapp -f dockerScripts/dockerfile-mediwatch . && docker run -p 8800:8800 mediwatch-webapp
-
-**Access Model for prediction at : http://127.0.0.1:8800/
-**Access Model for Monitoring at: http://127.0.0.1:8800/monitoring
+    docker build -t mediwatch-webapp -f dockerScripts/dockerfile-mediwatch . && docker run -p 8800:8800 mediwatch-webapp
+    Access Model for prediction at : http://127.0.0.1:8800/
+    Access Model for Monitoring at: http://127.0.0.1:8800/monitoring
 
 # Run MediWatch Airflow container
-docker compose -f airflow/dockercompose-airflow down && docker compose -f airflow/dockercompose-airflow up -d
+    docker compose -f airflow/dockercompose-airflow down && docker compose -f airflow/dockercompose-airflow up -d
 
-Login to airflow at: http://127.0.0.1:8080/
-**Run dag: launch_mediwatch_trainer
+    Login to airflow at: http://127.0.0.1:8080/
+    Run dag: launch_mediwatch_trainer
