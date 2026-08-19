@@ -1,0 +1,29 @@
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y build-essential curl 
+RUN rm -rf /var/lib/apt/lists/*
+
+#Install python dependenices
+RUN mkdir -p /app/mediwatch
+WORKDIR /app/mediwatch
+
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
+
+#COPY application code
+COPY . /app/mediwatch/
+
+ENV PIP_REQUIRE_HASHES=false
+ENV PYTHONPATH=".:/app/mediwatch/pythonScripts"
+ENV MEDIWATCH_WEBAPP_PORT=8800
+ENV HOME_PATH="/app/mediwatch"
+ENV MODEL_FILE=$HOME_PATH"/output/mediwatch.joblib"
+ENV TRAINING_DATA_FILE=$HOME_PATH"/output/trainingData.csv"
+ENV TRACK_INPUT_IN_FILE=$HOME_PATH"/output/trackInputData.csv"
+ENV DRIFT_RESULTS_FILE=$HOME_PATH"/output/driftResults.json"
+
+EXPOSE $MEDIWATCH_WEBAPP_PORT
+
+#Default command
+CMD ["python", "webapp/clientApp.py"]
+

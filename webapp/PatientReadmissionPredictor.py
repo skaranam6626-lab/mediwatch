@@ -3,9 +3,16 @@ import pandas as pd
 import joblib
 import logging
 import os
+from scripts.monitor_utils import append_input
 
-logging.basicConfig(level=logging.INFO)
-logger=logging.getLogger(__name__)
+
+logging.basicConfig(
+    filename='app.log', 
+    filemode='a', # 'a' to append logs, 'w' to overwrite every run
+    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+    level=logging.INFO # Capture INFO, WARNING, ERROR, and CRITICAL
+    )
+logger=logging.getLogger('patientReadmissionPredictor')
 
 class_labels={
     "0":"in less than 30 days.",
@@ -39,12 +46,14 @@ class PatientReadmissionPredictor:
         #Ensure input is as model expects in order
         patientRecordOrdered={}
         #logger.info(f"Model features:{model.feature_names_in_}")
-
         for key in model.feature_names_in_:
             patientRecordOrdered[key]=patientRecord[key]
+        #logger.info(f"patientRecordOrdered keys:{patientRecordOrdered.items()}")
+
+        append_input(patientRecordOrdered)
         patientRecordDF = pd.DataFrame([patientRecordOrdered])
         result=model.predict(patientRecordDF)
-        logger.info(f"Model result: {result}")
+        logger.info(f"Model predicted result: {class_labels[str(result[0])]}")
         return {"possibleReadmission": class_labels[str(result[0])]}
 
         

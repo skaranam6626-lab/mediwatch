@@ -78,37 +78,27 @@
                             <label for="race">Race</label>
                             <select class="custom-select" id="race" name="race" required>
                                 <option value="">Select…</option>
-                                <option value="Caucasian">Caucasian</option>
-                                <option value="AfricanAmerican">African American</option>
-                                <option value="Asian">Asian</option>
-                                <option value="Hispanic">Hispanic</option>
-                                <option value="Other">Other</option>
-                                <option value="?">Unknown</option>
+                                {% for value in encoded['race'].values() %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="gender">Gender</label>
                             <select class="custom-select" id="gender" name="gender" required>
                                 <option value="">Select…</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Unknown/Other">Unknown / Other</option>
+                                {% for value in encoded['gender'].values() %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="age">Age</label>
                             <select class="custom-select" id="age" name="age" required>
                                 <option value="">Select…</option>
-                                <option value="[0-10)">[0-10)</option>
-                                <option value="[10-20)">[10-20)</option>
-                                <option value="[20-30)">[20-30)</option>
-                                <option value="[30-40)">[30-40)</option>
-                                <option value="[40-50)">[40-50)</option>
-                                <option value="[50-60)">[50-60)</option>
-                                <option value="[60-70)">[60-70)</option>
-                                <option value="[70-80)">[70-80)</option>
-                                <option value="[80-90)">[80-90)</option>
-                                <option value="[90-100)">[90-100)</option>
+                                {% for value in encoded['age'].values() %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -189,18 +179,30 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="diag_1">Diagnosis 1</label>
-                            <input type="text" class="form-control" id="diag_1" name="diag_1"
-                                   placeholder="e.g. 250.83" required>
+                            <select class="custom-select" id="diag_1" name="diag_1" required>
+                                <option value="">Select…</option>
+                                {% for value in encoded['diag_1'].values() | sort %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="diag_2">Diagnosis 2</label>
-                            <input type="text" class="form-control" id="diag_2" name="diag_2"
-                                   placeholder="e.g. 401.9">
+                            <select class="custom-select" id="diag_2" name="diag_2">
+                                <option value="">Select…</option>
+                                {% for value in encoded['diag_2'].values() | sort %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="diag_3">Diagnosis 3</label>
-                            <input type="text" class="form-control" id="diag_3" name="diag_3"
-                                   placeholder="e.g. V27">
+                            <select class="custom-select" id="diag_3" name="diag_3">
+                                <option value="">Select…</option>
+                                {% for value in encoded['diag_3'].values() | sort %}
+                                <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -211,190 +213,169 @@
                         <div class="form-group col-md-4">
                             <label for="metformin">Metformin</label>
                             <select class="custom-select med-select" id="metformin" name="metformin" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['metformin'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="repaglinide">Repaglinide</label>
                             <select class="custom-select med-select" id="repaglinide" name="repaglinide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['repaglinide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="nateglinide">Nateglinide</label>
                             <select class="custom-select med-select" id="nateglinide" name="nateglinide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['nateglinide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="chlorpropamide">Chlorpropamide</label>
                             <select class="custom-select med-select" id="chlorpropamide" name="chlorpropamide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['chlorpropamide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glimepiride">Glimepiride</label>
                             <select class="custom-select med-select" id="glimepiride" name="glimepiride" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glimepiride'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="acetohexamide">Acetohexamide</label>
                             <select class="custom-select med-select" id="acetohexamide" name="acetohexamide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['acetohexamide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glipizide">Glipizide</label>
                             <select class="custom-select med-select" id="glipizide" name="glipizide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glipizide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glyburide">Glyburide</label>
                             <select class="custom-select med-select" id="glyburide" name="glyburide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glyburide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tolbutamide">Tolbutamide</label>
                             <select class="custom-select med-select" id="tolbutamide" name="tolbutamide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['tolbutamide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="pioglitazone">Pioglitazone</label>
                             <select class="custom-select med-select" id="pioglitazone" name="pioglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['pioglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="rosiglitazone">Rosiglitazone</label>
                             <select class="custom-select med-select" id="rosiglitazone" name="rosiglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['rosiglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="acarbose">Acarbose</label>
                             <select class="custom-select med-select" id="acarbose" name="acarbose" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['acarbose'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="miglitol">Miglitol</label>
                             <select class="custom-select med-select" id="miglitol" name="miglitol" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['miglitol'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="troglitazone">Troglitazone</label>
                             <select class="custom-select med-select" id="troglitazone" name="troglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['troglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tolazamide">Tolazamide</label>
                             <select class="custom-select med-select" id="tolazamide" name="tolazamide" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['tolazamide'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="insulin">Insulin</label>
                             <select class="custom-select med-select" id="insulin" name="insulin" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['insulin'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glyburide-metformin">Glyburide-Metformin</label>
                             <select class="custom-select med-select" id="glyburide-metformin" name="glyburide-metformin" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glyburide-metformin'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glipizide-metformin">Glipizide-Metformin</label>
                             <select class="custom-select med-select" id="glipizide-metformin" name="glipizide-metformin" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glipizide-metformin'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="glimepiride-pioglitazone">Glimepiride-Pioglitazone</label>
                             <select class="custom-select med-select" id="glimepiride-pioglitazone" name="glimepiride-pioglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['glimepiride-pioglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="metformin-rosiglitazone">Metformin-Rosiglitazone</label>
                             <select class="custom-select med-select" id="metformin-rosiglitazone" name="metformin-rosiglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['metformin-rosiglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="metformin-pioglitazone">Metformin-Pioglitazone</label>
                             <select class="custom-select med-select" id="metformin-pioglitazone" name="metformin-pioglitazone" required>
-                                <option value="No">No</option>
-                                <option value="Steady">Steady</option>
-                                <option value="Up">Up</option>
-                                <option value="Down">Down</option>
+                                {% for value in encoded['metformin-pioglitazone'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -406,15 +387,17 @@
                         <div class="form-group col-md-6">
                             <label for="change">Medication Change</label>
                             <select class="custom-select" id="change" name="change" required>
-                                <option value="No">No</option>
-                                <option value="Ch">Change</option>
+                                {% for value in encoded['change'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{% if value == 'Ch' %}Change{% else %}{{ value }}{% endif %}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="diabetesMed">Diabetes Medication</label>
                             <select class="custom-select" id="diabetesMed" name="diabetesMed" required>
-                                <option value="No">No</option>
-                                <option value="Yes">Yes</option>
+                                {% for value in encoded['diabetesMed'].values() %}
+                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -440,19 +423,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 <script>
-    var FIELD_NAMES = [
-        'race', 'gender', 'age',
-        'admission_type_id', 'admission_source_id', 'discharge_disposition_id',
-        'num_lab_procedures', 'num_medications', 'num_procedures', 'number_diagnoses',
-        'number_emergency', 'number_inpatient', 'number_outpatient', 'time_in_hospital',
-        'diag_1', 'diag_2', 'diag_3',
-        'metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride',
-        'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone',
-        'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'insulin',
-        'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone',
-        'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed'
-    ];
-
     var NUMERIC_FIELDS = [
         'admission_type_id', 'admission_source_id', 'discharge_disposition_id',
         'num_lab_procedures', 'num_medications', 'num_procedures', 'number_diagnoses',
@@ -460,10 +430,21 @@
     ];
 
     function collectFormData() {
+        var form = document.getElementById('patient-form');
         var data = {};
-        FIELD_NAMES.forEach(function (name) {
-            var value = document.querySelector('[name="' + name + '"]').value;
-            data[name] = NUMERIC_FIELDS.indexOf(name) !== -1 ? Number(value) : value;
+        Array.prototype.forEach.call(form.elements, function (el) {
+            if (!el.name || el.disabled || el.type === 'submit') {
+                return;
+            }
+            var name = el.name;
+            var value = el.value;
+            if (value === '' && (name === 'diag_2' || name === 'diag_3')) {
+                value = '?';
+            }
+            if (NUMERIC_FIELDS.indexOf(name) !== -1) {
+                value = Number(value);
+            }
+            data[name] = value;
         });
         return data;
     }

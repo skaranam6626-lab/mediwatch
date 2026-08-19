@@ -1,0 +1,9 @@
+{
+  "dataset_drift": null,
+  "number_of_drifted_features": 0,
+  "share_of_drifted_features": 0.0,
+  "metrics_list": [],
+  "error": "Could not extract detailed drift metrics from Evidently report",
+  "report_generated": true,
+  "evidently_version_issue": true
+}

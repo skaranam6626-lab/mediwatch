@@ -1,0 +1,65 @@
+services:
+  mlflow:
+    build:
+      context: ..
+      dockerfile: dockerScripts/dockerfile.mlflow
+    ports:
+      - "5050:5050"
+    volumes:
+      - mlflow_data:/app/mlflow
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:///mlflow/mlflow.db
+
+  ray-head:
+    image: rayproject/ray:2.57.0-py310
+    shm_size: "2gb"
+    ports:
+      - "8265:8265"   # Ray Dashboard
+      - "6379:6379"   # Ray GCS
+      - "10001:10001" # Ray Client
+    volumes:
+      - ../requirements.txt:/app/requirements.txt:ro
+      - ray_results:/ray_results
+    working_dir: /app
+    command: >
+      bash -c "pip install -q -r requirements.txt &&
+        ray start --head --dashboard-host=0.0.0.0 --dashboard-port=8265 --ray-client-server-port=10001 --node-ip-address=ray-head --num-cpus=0 &&
+        sleep infinity"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - MLFLOW_TRACKING_URI=http://mlflow:5050
+    healthcheck:
+      test: ["CMD", "bash", "-c", "ray status"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+
+  ray-worker:
+    image: rayproject/ray:2.57.0-py310
+    shm_size: "2gb"
+    volumes:
+      - ../requirements.txt:/app/requirements.txt:ro
+      - ../:/app/:ro
+      - ray_results:/ray_results
+    working_dir: /app
+    command: >
+      bash -c "pip install -q -r requirements.txt &&
+        until ray start --address=ray-head:6379 --block; do
+          echo 'Retrying connection to ray-head...';
+          sleep 5;
+        done"
+    depends_on:
+      ray-head:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - MLFLOW_TRACKING_URI=http://mlflow:5050
+
+volumes:
+  mlflow_data:
+  ray_results:
