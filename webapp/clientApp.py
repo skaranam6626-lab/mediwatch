@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -19,7 +21,16 @@ logging.basicConfig(
 logger = logging.getLogger('clientApp')
 
 app=FastAPI()
-templates=Jinja2Templates(directory="./webapp/templates")
+
+_WEBAPP_DIR = Path(__file__).resolve().parent
+_TEMPLATES_DIR = _WEBAPP_DIR / "templates"
+templates = Jinja2Templates(directory=str(_TEMPLATES_DIR))
+
+def _html_response(request: Request, template_name: str, context: dict) -> HTMLResponse:
+    response = templates.TemplateResponse(request, template_name, context)
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,7 +42,7 @@ app.add_middleware(
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse(
+    return _html_response(
         request,
         "index.html",
         {"encoded": encodedValues.encoded},
@@ -66,7 +77,7 @@ async def dashboard(request: Request):
             key=lambda m: m.get("drift_score", 0),
             reverse=True,
         )
-        return templates.TemplateResponse(
+        return _html_response(
             request,
             "monitoring.html",
             {
@@ -93,4 +104,9 @@ def dashboard_json():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8800, log_level="info")
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.getenv("MEDIWATCH_WEBAPP_PORT", "8800")),
+        log_level="info",
+    )

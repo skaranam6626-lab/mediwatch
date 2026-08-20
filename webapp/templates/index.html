@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>MediWatch – Patient Readmission</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384XQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -27,12 +30,16 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
+        .layout-container {
+            max-width: 1440px;
+        }
+
         /* Header */
         .site-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: #fff;
             padding: 1.25rem 0;
-            margin-bottom: 2rem;
+            margin-bottom: 1.75rem;
             box-shadow: 0 4px 20px rgba(27, 45, 107, 0.15);
         }
         .header-bar {
@@ -41,22 +48,17 @@
             justify-content: space-between;
             gap: 1.5rem;
         }
-        .header-brand {
-            flex: 1;
-            min-width: 0;
-        }
+        .header-brand { flex: 1; min-width: 0; }
         .site-header h1 {
             font-size: 1.75rem;
             font-weight: 700;
             margin: 0;
             line-height: 1.2;
-            letter-spacing: -0.02em;
         }
         .site-header .subtitle {
             opacity: 0.85;
             font-size: 0.95rem;
             margin: 0.25rem 0 0;
-            line-height: 1.3;
         }
         .nav-link-custom {
             color: rgba(255,255,255,0.9);
@@ -68,37 +70,36 @@
             transition: all 0.2s;
             white-space: nowrap;
             flex-shrink: 0;
-            line-height: 1.4;
         }
         .nav-link-custom:hover {
             color: #fff;
             background: rgba(255,255,255,0.12);
             text-decoration: none;
         }
-        @media (max-width: 575px) {
-            .header-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .nav-link-custom {
-                text-align: center;
-            }
+
+        /* Three-column layout */
+        .form-layout {
+            align-items: flex-start;
+        }
+        .col-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        /* Form cards */
         .form-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            box-shadow: 0 2px 8px rgba(27, 45, 107, 0.04);
+            border-radius: 12px;
+            padding: 1.25rem 1.35rem;
+            box-shadow: 0 2px 10px rgba(27, 45, 107, 0.05);
+            flex: 0 0 auto;
         }
         .section-title {
             color: var(--secondary);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin-bottom: 1.1rem;
+            margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border);
             display: flex;
@@ -109,136 +110,196 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             background: var(--bg);
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         label {
             font-weight: 600;
             color: var(--primary);
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            margin-bottom: 0.35rem;
+            margin-bottom: 0.3rem;
         }
         .form-control, .custom-select {
             border-radius: 6px;
             border: 1px solid var(--border);
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .form-control:focus, .custom-select:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.15);
         }
+        .form-group { margin-bottom: 0.85rem; }
 
-        /* Medications collapse */
-        .med-toggle {
-            cursor: pointer;
-            user-select: none;
-        }
+        .med-toggle { cursor: pointer; user-select: none; }
         .med-toggle .chevron {
             transition: transform 0.2s;
             font-size: 0.75rem;
             color: var(--text-muted);
         }
-        .med-toggle[aria-expanded="true"] .chevron {
-            transform: rotate(180deg);
-        }
+        .med-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
         .med-count {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 400;
             margin-left: auto;
         }
 
-        /* Submit button */
         .btn-predict {
             background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: #fff;
             font-weight: 700;
-            font-size: 1.05rem;
-            padding: 0.85rem 2rem;
-            letter-spacing: 0.02em;
+            font-size: 1rem;
+            padding: 0.9rem 1.5rem;
+            width: 100%;
             box-shadow: 0 4px 14px rgba(74, 108, 247, 0.35);
             transition: transform 0.15s, box-shadow 0.15s;
+            margin-top: 0.25rem;
         }
         .btn-predict:hover {
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(74, 108, 247, 0.45);
             color: #fff;
         }
-        .btn-predict:active {
-            transform: translateY(0);
-        }
 
-        /* Result panel */
-        .result-panel {
+        /* Result column */
+        .col-result {
             position: sticky;
-            top: 1.5rem;
+            top: 1.25rem;
         }
-        .result-card {
+        .result-shell {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
-            min-height: 280px;
-            box-shadow: 0 2px 8px rgba(27, 45, 107, 0.04);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(27, 45, 107, 0.1);
+            transition: border-color 0.4s, box-shadow 0.4s;
         }
+        .result-shell.has-result { box-shadow: 0 12px 40px rgba(27, 45, 107, 0.14); }
+        .result-shell.risk-high-border { border-color: rgba(231, 76, 60, 0.45); }
+        .result-shell.risk-medium-border { border-color: rgba(243, 156, 18, 0.45); }
+        .result-shell.risk-low-border { border-color: rgba(39, 174, 96, 0.45); }
+
+        .result-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            padding: 1.1rem 1.35rem;
+        }
+        .result-header h5 {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .result-header p {
+            margin: 0.25rem 0 0;
+            font-size: 0.82rem;
+            opacity: 0.85;
+        }
+
+        .result-body {
+            padding: 1.5rem 1.35rem;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .result-placeholder {
             text-align: center;
-            padding: 2rem 1rem;
             color: var(--text-muted);
+            animation: fadeIn 0.4s ease;
         }
-        .result-placeholder .icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            opacity: 0.4;
+        .result-placeholder .icon-ring {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
+        .result-placeholder p { font-size: 0.9rem; line-height: 1.5; margin: 0; }
+
         .result-outcome {
             text-align: center;
-            padding: 1rem 0;
+            animation: slideUp 0.45s ease;
         }
+        .risk-ring {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 1.1rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            border: 3px solid transparent;
+        }
+        .risk-ring.risk-high { background: #fde8e8; border-color: var(--risk-high); }
+        .risk-ring.risk-medium { background: #fef5e7; border-color: var(--risk-medium); }
+        .risk-ring.risk-low { background: #e6f4ea; border-color: var(--risk-low); }
+
         .risk-badge {
             display: inline-block;
-            padding: 0.5rem 1.25rem;
+            padding: 0.4rem 1rem;
             border-radius: 2rem;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 1rem;
+            letter-spacing: 0.07em;
+            margin-bottom: 0.75rem;
         }
         .risk-high { background: #fde8e8; color: var(--risk-high); }
         .risk-medium { background: #fef5e7; color: #d68910; }
         .risk-low { background: #e6f4ea; color: var(--risk-low); }
+
         .result-message {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--primary);
-            line-height: 1.5;
+            line-height: 1.45;
+            margin-bottom: 0;
         }
         .result-detail {
             margin-top: 1.25rem;
-            padding-top: 1.25rem;
+            padding-top: 1.1rem;
             border-top: 1px solid var(--border);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            text-align: left;
         }
+        .result-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.35rem 0;
+        }
+        .result-detail-row span:last-child { font-weight: 600; color: var(--secondary); }
+
         .result-error {
             background: #fde8e8;
             color: #c0392b;
             border-radius: 8px;
             padding: 1rem;
             font-size: 0.9rem;
+            animation: slideUp 0.35s ease;
         }
 
-        /* Loading overlay */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         #loading {
             display: none;
             position: fixed;
@@ -263,22 +324,23 @@
             animation: spin 0.8s linear infinite;
             margin: 0 auto 1rem;
         }
-        .loader-text {
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+        .loader-text { color: var(--secondary); font-weight: 600; font-size: 0.9rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         @media (max-width: 991px) {
-            .result-panel { position: static; margin-top: 1.5rem; }
+            .col-result { position: static; margin-top: 0.5rem; }
+            .result-body { min-height: 240px; }
+        }
+        @media (max-width: 575px) {
+            .header-bar { flex-direction: column; align-items: stretch; }
+            .nav-link-custom { text-align: center; }
         }
     </style>
 </head>
 <body>
 
 <header class="site-header">
-    <div class="container">
+    <div class="container layout-container">
         <div class="header-bar">
             <div class="header-brand">
                 <h1>MediWatch</h1>
@@ -289,52 +351,109 @@
     </div>
 </header>
 
-<div class="container pb-5">
-    <div class="row">
-        <div class="col-lg-8">
-            <form id="patient-form">
+<div class="container-fluid layout-container pb-5 px-3 px-md-4">
+    <form id="patient-form">
+        <div class="row form-layout">
 
+            <!-- Column 1: Demographics & Diagnoses -->
+            <div class="col-lg-4 col-form">
                 <div class="form-card">
                     <h5 class="section-title">
                         <span class="section-icon">👤</span> Demographics
                     </h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="race">Race</label>
-                            <select class="custom-select" id="race" name="race" required>
-                                <option value="">Select…</option>
-                                {% for value in encoded['race'].values() %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="gender">Gender</label>
-                            <select class="custom-select" id="gender" name="gender" required>
-                                <option value="">Select…</option>
-                                {% for value in encoded['gender'].values() %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="age">Age</label>
-                            <select class="custom-select" id="age" name="age" required>
-                                <option value="">Select…</option>
-                                {% for value in encoded['age'].values() %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="race">Race</label>
+                        <select class="custom-select" id="race" name="race" required>
+                            <option value="">Select…</option>
+                            {% for value in encoded['race'].values() %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="custom-select" id="gender" name="gender" required>
+                            <option value="">Select…</option>
+                            {% for value in encoded['gender'].values() %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="age">Age</label>
+                        <select class="custom-select" id="age" name="age" required>
+                            <option value="">Select…</option>
+                            {% for value in encoded['age'].values() %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
 
                 <div class="form-card">
                     <h5 class="section-title">
+                        <span class="section-icon">📋</span> Diagnoses
+                    </h5>
+                    <div class="form-group">
+                        <label for="diag_1">Diagnosis 1</label>
+                        <select class="custom-select" id="diag_1" name="diag_1" required>
+                            <option value="">Select…</option>
+                            {% for value in encoded['diag_1'].values() | sort %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="diag_2">Diagnosis 2</label>
+                        <select class="custom-select" id="diag_2" name="diag_2">
+                            <option value="">Select…</option>
+                            {% for value in encoded['diag_2'].values() | sort %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="diag_3">Diagnosis 3</label>
+                        <select class="custom-select" id="diag_3" name="diag_3">
+                            <option value="">Select…</option>
+                            {% for value in encoded['diag_3'].values() | sort %}
+                            <option value="{{ value }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h5 class="section-title">
+                        <span class="section-icon">⚙️</span> Other
+                    </h5>
+                    <div class="form-group">
+                        <label for="change">Medication Change</label>
+                        <select class="custom-select" id="change" name="change" required>
+                            {% for value in encoded['change'].values() %}
+                            <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{% if value == 'Ch' %}Change{% else %}{{ value }}{% endif %}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="diabetesMed">Diabetes Medication</label>
+                        <select class="custom-select" id="diabetesMed" name="diabetesMed" required>
+                            {% for value in encoded['diabetesMed'].values() %}
+                            <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Clinical & Medications -->
+            <div class="col-lg-4 col-form">
+                <div class="form-card">
+                    <h5 class="section-title">
                         <span class="section-icon">🏥</span> Admission &amp; Clinical
                     </h5>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-12">
                             <label for="admission_type_id">Admission Type</label>
                             <select class="custom-select" id="admission_type_id" name="admission_type_id" required>
                                 <option value="">Select…</option>
@@ -348,90 +467,55 @@
                                 <option value="8">8 – Not Mapped</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="admission_source_id">Admission Source ID</label>
+                        <div class="form-group col-6">
+                            <label for="admission_source_id">Adm. Source</label>
                             <input type="number" class="form-control" id="admission_source_id"
                                    name="admission_source_id" min="1" max="25" placeholder="1–25" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="discharge_disposition_id">Discharge Disposition ID</label>
+                        <div class="form-group col-6">
+                            <label for="discharge_disposition_id">Discharge ID</label>
                             <input type="number" class="form-control" id="discharge_disposition_id"
                                    name="discharge_disposition_id" min="1" max="30" placeholder="1–30" required>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-6">
                             <label for="num_lab_procedures">Lab Procedures</label>
                             <input type="number" class="form-control" id="num_lab_procedures"
-                                   name="num_lab_procedures" min="0" placeholder="e.g. 41" required>
+                                   name="num_lab_procedures" min="0" placeholder="41" required>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="num_medications">Medications Count</label>
+                        <div class="form-group col-6">
+                            <label for="num_medications">Medications</label>
                             <input type="number" class="form-control" id="num_medications"
-                                   name="num_medications" min="1" placeholder="e.g. 14" required>
+                                   name="num_medications" min="1" placeholder="14" required>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-6">
                             <label for="num_procedures">Procedures</label>
                             <input type="number" class="form-control" id="num_procedures"
-                                   name="num_procedures" min="0" placeholder="e.g. 0" required>
+                                   name="num_procedures" min="0" placeholder="0" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="number_diagnoses">Diagnoses</label>
+                        <div class="form-group col-6">
+                            <label for="number_diagnoses">Diagnoses #</label>
                             <input type="number" class="form-control" id="number_diagnoses"
-                                   name="number_diagnoses" min="1" placeholder="e.g. 9" required>
+                                   name="number_diagnoses" min="1" placeholder="9" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="number_emergency">Prior Emergency</label>
+                        <div class="form-group col-4">
+                            <label for="number_emergency">Emerg.</label>
                             <input type="number" class="form-control" id="number_emergency"
-                                   name="number_emergency" min="0" placeholder="e.g. 0" required>
+                                   name="number_emergency" min="0" placeholder="0" required>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="number_inpatient">Prior Inpatient</label>
+                        <div class="form-group col-4">
+                            <label for="number_inpatient">Inpatient</label>
                             <input type="number" class="form-control" id="number_inpatient"
-                                   name="number_inpatient" min="0" placeholder="e.g. 1" required>
+                                   name="number_inpatient" min="0" placeholder="1" required>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="number_outpatient">Prior Outpatient</label>
+                        <div class="form-group col-4">
+                            <label for="number_outpatient">Outpatient</label>
                             <input type="number" class="form-control" id="number_outpatient"
-                                   name="number_outpatient" min="0" placeholder="e.g. 0" required>
+                                   name="number_outpatient" min="0" placeholder="0" required>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-12 mb-0">
                             <label for="time_in_hospital">Days in Hospital</label>
                             <input type="number" class="form-control" id="time_in_hospital"
-                                   name="time_in_hospital" min="1" max="14" placeholder="e.g. 3" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-card">
-                    <h5 class="section-title">
-                        <span class="section-icon">📋</span> Diagnoses
-                    </h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="diag_1">Diagnosis 1</label>
-                            <select class="custom-select" id="diag_1" name="diag_1" required>
-                                <option value="">Select…</option>
-                                {% for value in encoded['diag_1'].values() | sort %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="diag_2">Diagnosis 2</label>
-                            <select class="custom-select" id="diag_2" name="diag_2">
-                                <option value="">Select…</option>
-                                {% for value in encoded['diag_2'].values() | sort %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="diag_3">Diagnosis 3</label>
-                            <select class="custom-select" id="diag_3" name="diag_3">
-                                <option value="">Select…</option>
-                                {% for value in encoded['diag_3'].values() | sort %}
-                                <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
+                                   name="time_in_hospital" min="1" max="14" placeholder="3" required>
                         </div>
                     </div>
                 </div>
@@ -440,12 +524,12 @@
                     <h5 class="section-title med-toggle" data-toggle="collapse" data-target="#medSection"
                         aria-expanded="false" aria-controls="medSection">
                         <span class="section-icon">💊</span> Medications
-                        <span class="med-count">19 fields — click to expand</span>
+                        <span class="med-count">19 fields — expand</span>
                         <span class="chevron ml-2">▼</span>
                     </h5>
                     <div class="collapse" id="medSection">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="metformin">Metformin</label>
                                 <select class="custom-select med-select" id="metformin" name="metformin" required>
                                     {% for value in encoded['metformin'].values() %}
@@ -453,7 +537,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="repaglinide">Repaglinide</label>
                                 <select class="custom-select med-select" id="repaglinide" name="repaglinide" required>
                                     {% for value in encoded['repaglinide'].values() %}
@@ -461,7 +545,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="nateglinide">Nateglinide</label>
                                 <select class="custom-select med-select" id="nateglinide" name="nateglinide" required>
                                     {% for value in encoded['nateglinide'].values() %}
@@ -469,7 +553,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="chlorpropamide">Chlorpropamide</label>
                                 <select class="custom-select med-select" id="chlorpropamide" name="chlorpropamide" required>
                                     {% for value in encoded['chlorpropamide'].values() %}
@@ -477,7 +561,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="glimepiride">Glimepiride</label>
                                 <select class="custom-select med-select" id="glimepiride" name="glimepiride" required>
                                     {% for value in encoded['glimepiride'].values() %}
@@ -485,7 +569,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="acetohexamide">Acetohexamide</label>
                                 <select class="custom-select med-select" id="acetohexamide" name="acetohexamide" required>
                                     {% for value in encoded['acetohexamide'].values() %}
@@ -493,7 +577,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="glipizide">Glipizide</label>
                                 <select class="custom-select med-select" id="glipizide" name="glipizide" required>
                                     {% for value in encoded['glipizide'].values() %}
@@ -501,7 +585,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="glyburide">Glyburide</label>
                                 <select class="custom-select med-select" id="glyburide" name="glyburide" required>
                                     {% for value in encoded['glyburide'].values() %}
@@ -509,7 +593,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="tolbutamide">Tolbutamide</label>
                                 <select class="custom-select med-select" id="tolbutamide" name="tolbutamide" required>
                                     {% for value in encoded['tolbutamide'].values() %}
@@ -517,7 +601,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="pioglitazone">Pioglitazone</label>
                                 <select class="custom-select med-select" id="pioglitazone" name="pioglitazone" required>
                                     {% for value in encoded['pioglitazone'].values() %}
@@ -525,7 +609,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="rosiglitazone">Rosiglitazone</label>
                                 <select class="custom-select med-select" id="rosiglitazone" name="rosiglitazone" required>
                                     {% for value in encoded['rosiglitazone'].values() %}
@@ -533,7 +617,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="acarbose">Acarbose</label>
                                 <select class="custom-select med-select" id="acarbose" name="acarbose" required>
                                     {% for value in encoded['acarbose'].values() %}
@@ -541,7 +625,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="miglitol">Miglitol</label>
                                 <select class="custom-select med-select" id="miglitol" name="miglitol" required>
                                     {% for value in encoded['miglitol'].values() %}
@@ -549,7 +633,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="troglitazone">Troglitazone</label>
                                 <select class="custom-select med-select" id="troglitazone" name="troglitazone" required>
                                     {% for value in encoded['troglitazone'].values() %}
@@ -557,7 +641,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="tolazamide">Tolazamide</label>
                                 <select class="custom-select med-select" id="tolazamide" name="tolazamide" required>
                                     {% for value in encoded['tolazamide'].values() %}
@@ -565,7 +649,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-6">
                                 <label for="insulin">Insulin</label>
                                 <select class="custom-select med-select" id="insulin" name="insulin" required>
                                     {% for value in encoded['insulin'].values() %}
@@ -573,40 +657,40 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="glyburide-metformin">Glyburide-Metformin</label>
+                            <div class="form-group col-6">
+                                <label for="glyburide-metformin">Glyb-Metformin</label>
                                 <select class="custom-select med-select" id="glyburide-metformin" name="glyburide-metformin" required>
                                     {% for value in encoded['glyburide-metformin'].values() %}
                                     <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="glipizide-metformin">Glipizide-Metformin</label>
+                            <div class="form-group col-6">
+                                <label for="glipizide-metformin">Glip-Metformin</label>
                                 <select class="custom-select med-select" id="glipizide-metformin" name="glipizide-metformin" required>
                                     {% for value in encoded['glipizide-metformin'].values() %}
                                     <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="glimepiride-pioglitazone">Glimepiride-Pioglitazone</label>
+                            <div class="form-group col-6">
+                                <label for="glimepiride-pioglitazone">Glim-Pioglitazone</label>
                                 <select class="custom-select med-select" id="glimepiride-pioglitazone" name="glimepiride-pioglitazone" required>
                                     {% for value in encoded['glimepiride-pioglitazone'].values() %}
                                     <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="metformin-rosiglitazone">Metformin-Rosiglitazone</label>
+                            <div class="form-group col-6">
+                                <label for="metformin-rosiglitazone">Met-Rosiglitazone</label>
                                 <select class="custom-select med-select" id="metformin-rosiglitazone" name="metformin-rosiglitazone" required>
                                     {% for value in encoded['metformin-rosiglitazone'].values() %}
                                     <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="metformin-pioglitazone">Metformin-Pioglitazone</label>
+                            <div class="form-group col-6 mb-0">
+                                <label for="metformin-pioglitazone">Met-Pioglitazone</label>
                                 <select class="custom-select med-select" id="metformin-pioglitazone" name="metformin-pioglitazone" required>
                                     {% for value in encoded['metformin-pioglitazone'].values() %}
                                     <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
@@ -617,49 +701,28 @@
                     </div>
                 </div>
 
-                <div class="form-card">
-                    <h5 class="section-title">
-                        <span class="section-icon">⚙️</span> Other
-                    </h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="change">Medication Change</label>
-                            <select class="custom-select" id="change" name="change" required>
-                                {% for value in encoded['change'].values() %}
-                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{% if value == 'Ch' %}Change{% else %}{{ value }}{% endif %}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="diabetesMed">Diabetes Medication</label>
-                            <select class="custom-select" id="diabetesMed" name="diabetesMed" required>
-                                {% for value in encoded['diabetesMed'].values() %}
-                                <option value="{{ value }}"{% if value == 'No' %} selected{% endif %}>{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
                 <button type="submit" class="btn btn-predict btn-lg">Predict Readmission Risk</button>
-            </form>
-        </div>
+            </div>
 
-        <div class="col-lg-4">
-            <div class="result-panel">
-                <h5 class="section-title" style="border-bottom-color: var(--border);">
-                    <span class="section-icon">📊</span> Prediction Result
-                </h5>
-                <div class="result-card" id="result-card">
-                    <div class="result-placeholder" id="result-placeholder">
-                        <div class="icon">🔬</div>
-                        <p class="mb-0">Fill in the patient details and click <strong>Predict Readmission Risk</strong> to see the outcome.</p>
+            <!-- Column 3: Live prediction -->
+            <div class="col-lg-4 col-result">
+                <div class="result-shell" id="result-shell">
+                    <div class="result-header">
+                        <h5>Prediction Result</h5>
+                        <p>Updates live when you submit the form</p>
                     </div>
-                    <div id="result-output" style="display:none;"></div>
+                    <div class="result-body" id="result-body">
+                        <div class="result-placeholder" id="result-placeholder">
+                            <div class="icon-ring">🔬</div>
+                            <p>Complete the patient form and click <strong>Predict Readmission Risk</strong> to see the outcome here.</p>
+                        </div>
+                        <div id="result-output" style="display:none;"></div>
+                    </div>
                 </div>
             </div>
+
         </div>
-    </div>
+    </form>
 </div>
 
 <div id="loading">
@@ -680,6 +743,8 @@
         'num_lab_procedures', 'num_medications', 'num_procedures', 'number_diagnoses',
         'number_emergency', 'number_inpatient', 'number_outpatient', 'time_in_hospital'
     ];
+
+    var RISK_ICONS = { high: '⚠️', medium: '⏳', low: '✓' };
 
     function collectFormData() {
         var form = document.getElementById('patient-form');
@@ -706,23 +771,29 @@
         return { level: 'low', label: 'Low Risk', css: 'risk-low' };
     }
 
+    function setResultShell(risk) {
+        var shell = document.getElementById('result-shell');
+        shell.className = 'result-shell has-result risk-' + risk.level + '-border';
+    }
+
     function renderResult(data) {
         var placeholder = document.getElementById('result-placeholder');
         var output = document.getElementById('result-output');
-        placeholder.style.display = 'none';
-        output.style.display = 'block';
-
         var readmission = data.possibleReadmission || 'Unknown';
         var risk = classifyRisk(readmission);
         var now = new Date().toLocaleString();
 
+        setResultShell(risk);
+        placeholder.style.display = 'none';
+        output.style.display = 'block';
         output.innerHTML =
             '<div class="result-outcome">' +
+                '<div class="risk-ring ' + risk.css + '">' + RISK_ICONS[risk.level] + '</div>' +
                 '<span class="risk-badge ' + risk.css + '">' + risk.label + '</span>' +
                 '<p class="result-message">Readmission expected ' + readmission + '</p>' +
                 '<div class="result-detail">' +
-                    '<div>Model: Random Forest</div>' +
-                    '<div>Predicted at ' + now + '</div>' +
+                    '<div class="result-detail-row"><span>Model</span><span>Random Forest</span></div>' +
+                    '<div class="result-detail-row"><span>Predicted</span><span>' + now + '</span></div>' +
                 '</div>' +
             '</div>';
     }
@@ -730,6 +801,8 @@
     function renderError(message) {
         var placeholder = document.getElementById('result-placeholder');
         var output = document.getElementById('result-output');
+        var shell = document.getElementById('result-shell');
+        shell.className = 'result-shell has-result risk-high-border';
         placeholder.style.display = 'none';
         output.style.display = 'block';
         output.innerHTML = '<div class="result-error"><strong>Prediction failed</strong><br>' + message + '</div>';
