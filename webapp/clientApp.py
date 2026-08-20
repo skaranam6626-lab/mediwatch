@@ -7,7 +7,7 @@ from PatientReadmissionPredictor import PatientReadmissionPredictor
 import encodedValues
 import os
 from datetime import datetime
-from scripts.monitor import run_drift   #run drift detection
+from pythonScripts.monitor import run_drift   #run drift detection
 
 
 logging.basicConfig(
@@ -55,13 +55,39 @@ async def predict(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/monitoring")
-def dashboard():
-    logger.info(f"Running drift detection")
+@app.get("/monitoring", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    logger.info("Running drift detection")
     try:
-        drift_summary=run_drift(output_path=os.getenv('DRIFT_RESULTS_FILE'))
+        drift_summary = run_drift(output_path=os.getenv("DRIFT_RESULTS_FILE"))
+        logger.info(f"Drift summary: dataset_drift={drift_summary.get('dataset_drift')}")
+        metrics = sorted(
+            drift_summary.get("metrics_list", []),
+            key=lambda m: m.get("drift_score", 0),
+            reverse=True,
+        )
+        return templates.TemplateResponse(
+            request,
+            "monitoring.html",
+            {
+                "drift": drift_summary,
+                "metrics": metrics,
+                "total_features": len(metrics),
+                "checked_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            },
+        )
+    except Exception as e:
+        logger.exception("Drift detection failed")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/monitoring/json")
+def dashboard_json():
+    """JSON API for programmatic access to drift results."""
+    logger.info("Running drift detection (JSON)")
+    try:
+        drift_summary = run_drift(output_path=os.getenv("DRIFT_RESULTS_FILE"))
         return JSONResponse(content={"drift_summary": drift_summary})
-        logger.info(f"Drift summary: {drift_summary}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

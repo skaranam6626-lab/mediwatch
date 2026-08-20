@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import logging
 import os
-from scripts.monitor_utils import append_input
+from pythonScripts.monitor_utils import append_input
 
 
 logging.basicConfig(

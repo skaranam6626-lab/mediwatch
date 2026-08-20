@@ -2,6 +2,18 @@
 
 MediWatch is an end-to-end machine learning pipeline that predicts hospital readmission risk for diabetic patients. It covers data ingestion, preprocessing, model training, hyperparameter tuning, experiment tracking, drift monitoring, and a prediction web app.
 
+**Full documentation:** see the [`docs/`](./docs/) folder:
+
+| Guide | Description |
+|---|---|
+| [**User Manual**](./docs/USER_MANUAL.md) | Installation, execution workflows, tool dependencies, troubleshooting |
+| [**Code Reference**](./docs/CODE_REFERENCE.md) | Module-by-module documentation for every script and DAG |
+| [**Architecture**](./docs/ARCHITECTURE.md) | System design, data flow diagrams, deployment topology |
+| [**Video Walkthrough**](./docs/VIDEO_WALKTHROUGH.md) | Shot-by-shot script to record a demo video |
+| [**Snapshots**](./docs/snapshots/) | Architecture diagram and UI screenshots |
+
+![Architecture](./docs/snapshots/architecture-diagram.png)
+
 The automated CI/CD pipeline runs these steps on every code change:
 
 1. **Environment setup** — install Python dependencies
@@ -121,12 +133,6 @@ To stop:
 docker compose -f dockerScripts/dockercompose-raytune.yml down
 ```
 
-Alternatively, run MLflow locally without Docker:
-
-```bash
-./wrapperScripts/run_mlflow.sh
-```
-
 ### 4. Train the model
 
 Trains a Random Forest and logs metrics to MLflow. Output: `output/mediwatch.joblib`
@@ -207,13 +213,28 @@ Available DAGs:
 |---|---|
 | `launch_mediwatch_trainer` | Download data → train model |
 | `launch_mediwatch_tuner` | Download data → run Ray Tune hyperparameter search |
+| `mediwatch_ml_pipeline` | Full pipeline: ingest → train → evaluate → deploy → monitor → retrain on drift |
 
 Trigger a DAG from the Airflow UI or CLI:
 
 ```bash
+# Full ML pipeline (train → evaluate → deploy → monitor → retrain)
+docker compose -f airflow/dockercompose-airflow exec airflow-scheduler \
+  airflow dags trigger mediwatch_ml_pipeline
+
+# Train only
 docker compose -f airflow/dockercompose-airflow exec airflow-scheduler \
   airflow dags trigger launch_mediwatch_trainer
 ```
+
+**`mediwatch_ml_pipeline`** runs weekly (or trigger manually) through these stages:
+
+1. **Data ingestion** — download + preprocess
+2. **Training** — train Random Forest, log to MLflow
+3. **Evaluation** — validate accuracy ≥ 50%, F1 ≥ 40%
+4. **Deployment** — promote model to `output/mediwatch_production.joblib`
+5. **Monitoring** — Evidently drift detection on live inputs
+6. **Retraining** — if drift detected, re-run preprocess → train → evaluate → deploy
 
 Stop Airflow:
 
@@ -248,9 +269,13 @@ Compare runs and download artifacts from the MLflow UI at http://127.0.0.1:5050/
 | `run_monitor.sh` | Data drift detection |
 | `run_webApp.sh` | Start prediction webapp |
 | `run_mlflow.sh` | Start local MLflow UI |
-| `run_trainer_inAirflow.sh` | Trainer variant for Airflow tasks |
-| `run_tuner_inAirflow.sh` | Tuner variant for Airflow tasks |
+| `run_monitor_inAirflow.sh` | Drift detection for Airflow tasks |
+| `run_evaluator_inAirflow.sh` | Evaluation gate for Airflow tasks |
+| `run_deploy_inAirflow.sh` | Model deployment for Airflow tasks |
+| `run_preprocessing_inAirflow.sh` | Preprocessing for Airflow tasks |
 | `setup_env.sh` | Shared venv setup (sourced by other scripts) |
+
+See [docs/CODE_REFERENCE.md](./docs/CODE_REFERENCE.md) for full module documentation.
 
 ---
 

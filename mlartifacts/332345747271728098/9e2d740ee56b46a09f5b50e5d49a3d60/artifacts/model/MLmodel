@@ -1,0 +1,61 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.8.18
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.3.2
+mlflow_version: 2.17.2
+model_size_bytes: 1105893
+model_uuid: e0de59744ee94d6491418c3094c09abe
+run_id: 9e2d740ee56b46a09f5b50e5d49a3d60
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "acarbose_encoded", "required": true}, {"type":
+    "double", "name": "acetohexamide_encoded", "required": true}, {"type": "double",
+    "name": "admission_source_id", "required": true}, {"type": "double", "name": "admission_type_id",
+    "required": true}, {"type": "double", "name": "age_encoded", "required": true},
+    {"type": "double", "name": "change_encoded", "required": true}, {"type": "double",
+    "name": "chlorpropamide_encoded", "required": true}, {"type": "double", "name":
+    "diabetesMed_encoded", "required": true}, {"type": "double", "name": "diag_1_encoded",
+    "required": true}, {"type": "double", "name": "diag_2_encoded", "required": true},
+    {"type": "double", "name": "diag_3_encoded", "required": true}, {"type": "double",
+    "name": "discharge_disposition_id", "required": true}, {"type": "double", "name":
+    "gender_encoded", "required": true}, {"type": "double", "name": "glimepiride-pioglitazone_encoded",
+    "required": true}, {"type": "double", "name": "glimepiride_encoded", "required":
+    true}, {"type": "double", "name": "glipizide-metformin_encoded", "required": true},
+    {"type": "double", "name": "glipizide_encoded", "required": true}, {"type": "double",
+    "name": "glyburide-metformin_encoded", "required": true}, {"type": "double", "name":
+    "glyburide_encoded", "required": true}, {"type": "double", "name": "insulin_encoded",
+    "required": true}, {"type": "double", "name": "metformin-pioglitazone_encoded",
+    "required": true}, {"type": "double", "name": "metformin-rosiglitazone_encoded",
+    "required": true}, {"type": "double", "name": "metformin_encoded", "required":
+    true}, {"type": "double", "name": "miglitol_encoded", "required": true}, {"type":
+    "double", "name": "nateglinide_encoded", "required": true}, {"type": "double",
+    "name": "num_lab_procedures", "required": true}, {"type": "double", "name": "num_medications",
+    "required": true}, {"type": "double", "name": "num_procedures", "required": true},
+    {"type": "double", "name": "number_diagnoses", "required": true}, {"type": "double",
+    "name": "number_emergency", "required": true}, {"type": "double", "name": "number_inpatient",
+    "required": true}, {"type": "double", "name": "number_outpatient", "required":
+    true}, {"type": "double", "name": "pioglitazone_encoded", "required": true}, {"type":
+    "double", "name": "race_encoded", "required": true}, {"type": "double", "name":
+    "repaglinide_encoded", "required": true}, {"type": "double", "name": "rosiglitazone_encoded",
+    "required": true}, {"type": "double", "name": "time_in_hospital", "required":
+    true}, {"type": "double", "name": "tolazamide_encoded", "required": true}, {"type":
+    "double", "name": "tolbutamide_encoded", "required": true}, {"type": "double",
+    "name": "troglitazone_encoded", "required": true}]'
+  outputs: null
+  params: null
+utc_time_created: '2026-08-19 23:21:16.211933'

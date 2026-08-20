@@ -23,7 +23,8 @@ export MODEL_FILE=$HOME_PATH"/output/mediwatch.joblib"
 export EXPERIMENT_NAME="MediWatch-PatientReadmission-1"
 export N_ESTIMATORS=10
 export MAX_DEPTH=10
-export TRAINED_DATA_FILE=$HOME_PATH"/output/trainingData.csv"
+export TRAINING_DATA_FILE=$HOME_PATH"/output/trainingData.csv"
+export GIT_PYTHON_REFRESH=quiet
 
 #Run mlflow in background (use python -m; Airflow task PATH may omit ~/.local/bin)
 python3 pythonScripts/trainer.py

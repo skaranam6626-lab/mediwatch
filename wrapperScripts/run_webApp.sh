@@ -19,5 +19,8 @@ setup_python_env
 
 #Run the webapp at:http://127.0.0.1:8800/
 export MODEL_FILE=$HOME_PATH"/output/mediwatch.joblib"
+export TRAINING_DATA_FILE=$HOME_PATH"/output/trainingData.csv"
 export TRACK_INPUT_IN_FILE=$HOME_PATH"/output/trackInputData.csv"
+export DRIFT_RESULTS_FILE=$HOME_PATH"/output/driftResults.json"
+
 python3 webapp/clientApp.py

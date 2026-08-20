@@ -1,0 +1,217 @@
+2026-08-19 23:21:11,484 - INFO - trainer - Starting to train the model
+2026-08-19 23:21:11,495 - WARNING - urllib3.connectionpool - Retrying (JitteredRetry(total=4, connect=4, read=5, redirect=5, status=5)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff4ae2d940>: Failed to establish a new connection: [Errno 111] Connection refused')': /api/2.0/mlflow/experiments/create
+2026-08-19 23:21:15,505 - WARNING - urllib3.connectionpool - Retrying (JitteredRetry(total=3, connect=3, read=5, redirect=5, status=5)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff4ade1dc0>: Failed to establish a new connection: [Errno 111] Connection refused')': /api/2.0/mlflow/experiments/create
+2026-08-19 23:21:15,583 - INFO - trainer - Loading data from /opt/airflow/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 23:21:15,880 - INFO - trainer - Training with hyper params: {'n_estimators': 10, 'max_depth': 10, 'min_samples_split': 2}
+2026-08-19 23:21:16,203 - INFO - trainer - Model metrics: {'accuracy': 0.5858104456345502, 'precision': 0.5631167051531274, 'recall': 0.5858104456345502, 'f1': 0.5282203820861393}
+2026-08-19 23:21:17,811 - INFO - trainer - Model saved to /opt/airflow/mediwatch/output/mediwatch.joblib
+2026-08-19 16:29:39,270 - INFO - clientApp - Running drift detection
+2026-08-19 16:29:40,474 - INFO - monitor - report: ['__annotations__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_timestamp', 'include_tests', 'items', 'metadata', 'metrics', 'run', 'set_batch_size', 'set_dataset_id', 'set_model_id', 'set_reference_id', 'tags']
+2026-08-19 16:29:40,474 - INFO - monitor - available methods: ['include_tests', 'items', 'metadata', 'metrics', 'run', 'set_batch_size', 'set_dataset_id', 'set_model_id', 'set_reference_id', 'tags']
+2026-08-19 16:29:40,474 - INFO - monitor - Trying to access computed metrics from _inner_suite...
+2026-08-19 16:29:40,474 - INFO - monitor - Trying to expand DataDriftPreset to get actual metrics...
+2026-08-19 16:29:40,474 - INFO - monitor - Preset expansion failed: DataDriftPreset.generate_metrics() missing 1 required positional argument: 'context'
+2026-08-19 16:29:40,474 - INFO - monitor - Looking for specific drift metrics in computed suite...
+2026-08-19 16:29:40,474 - INFO - monitor - Trying to force calculation...
+2026-08-19 16:29:40,474 - INFO - monitor - Trying newer Evidently API methods...
+2026-08-19 16:29:40,474 - INFO - monitor - Trying manual calculation approach...
+2026-08-19 16:29:40,474 - INFO - monitor - DataDriftTable not available for manual import
+2026-08-19 16:29:40,474 - INFO - monitor - All extraction methods failed, creating minimal structure
+2026-08-19 16:41:16,229 - INFO - trainer - Starting to train the model
+2026-08-19 16:41:16,413 - INFO - trainer - Loading data from /Users/sk-training/main/src/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 16:41:16,692 - INFO - trainer - Training with hyper params: {'n_estimators': 10, 'max_depth': 10, 'min_samples_split': 2}
+2026-08-19 16:41:17,025 - INFO - trainer - Model metrics: {'accuracy': 0.5858104456345502, 'precision': 0.5631167051531274, 'recall': 0.5858104456345502, 'f1': 0.5282203820861393}
+2026-08-19 16:41:21,667 - INFO - trainer - Model saved to /Users/sk-training/main/src/mediwatch/output/mediwatch.joblib
+2026-08-19 16:42:19,049 - INFO - trainer_withSmote - Starting to train the model
+2026-08-19 16:42:19,177 - INFO - trainer_withSmote - Loading data from /Users/sk-training/main/src/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 16:42:20,865 - INFO - trainer_withSmote - Training with hyper params: {'n_estimators': 10, 'max_depth': 10, 'min_samples_split': 2}
+2026-08-19 16:42:20,865 - INFO - trainer_withSmote - Training model with 164583 samples and 164583 target values
+2026-08-19 16:42:22,067 - INFO - trainer_withSmote - Model metrics: {'accuracy': 0.5918537807694197, 'precision': 0.5575618894684727, 'recall': 0.5918537807694197, 'f1': 0.5518495615549344}
+2026-08-19 16:42:26,294 - INFO - trainer_withSmote - Model saved to /Users/sk-training/main/src/mediwatch/output/mediwatch_withSmote.joblib
+2026-08-19 16:42:51,155 - INFO - tuner - unable to create experiment, in exception block
+Traceback (most recent call last):
+  File "/Users/sk-training/main/src/mediwatch/pythonScripts/tuner.py", line 75, in main
+    experiment_id=mlflow.create_experiment(experiment_name)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/fluent.py", line 2371, in create_experiment
+    experiment_id = client.create_experiment(name, artifact_location, tags)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/client.py", line 2144, in create_experiment
+    return self._tracking_client.create_experiment(name, artifact_location, tags)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/telemetry/track.py", line 30, in wrapper
+    result = func(*args, **kwargs)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/_tracking_service/client.py", line 300, in create_experiment
+    return self.store.create_experiment(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/store/tracking/rest_store.py", line 320, in create_experiment
+    response_proto = self._call_endpoint(CreateExperiment, req_body)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/store/tracking/rest_store.py", line 269, in _call_endpoint
+    return call_endpoint(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/utils/rest_utils.py", line 672, in call_endpoint
+    response = verify_rest_response(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/utils/rest_utils.py", line 379, in verify_rest_response
+    raise RestException(json.loads(response.text))
+mlflow.exceptions.RestException: RESOURCE_ALREADY_EXISTS: Experiment(name=MediWatch-PatientReadmission-tuning-20260818) already exists. Error: (sqlite3.IntegrityError) UNIQUE constraint failed: experiments.workspace, experiments.name
+[SQL: INSERT INTO experiments (name, workspace, artifact_location, lifecycle_stage, creation_time, last_update_time) VALUES (?, ?, ?, ?, ?, ?)]
+[parameters: ('MediWatch-PatientReadmission-tuning-20260818', 'default', '', 'active', 1787182971151, 1787182971151)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-08-19 16:42:51,164 - INFO - tuner - ----------------experiment_id:2------------
+2026-08-19 16:42:51,164 - INFO - tuner - Loading data from /Users/sk-training/main/src/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 16:42:51,254 - INFO - tuner - Connecting to Ray cluster at ray://127.0.0.1:10001
+2026-08-19 16:43:43,796 - INFO - tuner - unable to create experiment, in exception block
+Traceback (most recent call last):
+  File "/Users/sk-training/main/src/mediwatch/pythonScripts/tuner.py", line 75, in main
+    experiment_id=mlflow.create_experiment(experiment_name)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/fluent.py", line 2371, in create_experiment
+    experiment_id = client.create_experiment(name, artifact_location, tags)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/client.py", line 2144, in create_experiment
+    return self._tracking_client.create_experiment(name, artifact_location, tags)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/telemetry/track.py", line 30, in wrapper
+    result = func(*args, **kwargs)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/tracking/_tracking_service/client.py", line 300, in create_experiment
+    return self.store.create_experiment(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/store/tracking/rest_store.py", line 320, in create_experiment
+    response_proto = self._call_endpoint(CreateExperiment, req_body)
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/store/tracking/rest_store.py", line 269, in _call_endpoint
+    return call_endpoint(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/utils/rest_utils.py", line 672, in call_endpoint
+    response = verify_rest_response(
+  File "/Users/sk-training/main/src/mediwatch/.venv/lib/python3.10/site-packages/mlflow/utils/rest_utils.py", line 379, in verify_rest_response
+    raise RestException(json.loads(response.text))
+mlflow.exceptions.RestException: RESOURCE_ALREADY_EXISTS: Experiment(name=MediWatch-PatientReadmission-tuning-20260818) already exists. Error: (sqlite3.IntegrityError) UNIQUE constraint failed: experiments.workspace, experiments.name
+[SQL: INSERT INTO experiments (name, workspace, artifact_location, lifecycle_stage, creation_time, last_update_time) VALUES (?, ?, ?, ?, ?, ?)]
+[parameters: ('MediWatch-PatientReadmission-tuning-20260818', 'default', '', 'active', 1787183023789, 1787183023789)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-08-19 16:43:43,803 - INFO - tuner - ----------------experiment_id:2------------
+2026-08-19 16:43:43,803 - INFO - tuner - Loading data from /Users/sk-training/main/src/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 16:43:43,881 - INFO - tuner - Connecting to Ray cluster at ray://127.0.0.1:10001
+2026-08-19 16:45:05,076 - INFO - monitor - 🚀 Starting drift detection...
+2026-08-19 16:47:31,949 - INFO - trainer - Starting to train the model
+2026-08-19 16:47:32,065 - INFO - trainer - Loading data from /Users/sk-training/main/src/mediwatch/output/diabetic_data_processed.csv
+2026-08-19 16:47:32,342 - INFO - trainer - Training with hyper params: {'n_estimators': 10, 'max_depth': 10, 'min_samples_split': 2}
+2026-08-19 16:47:32,647 - INFO - trainer - Model metrics: {'accuracy': 0.5858104456345502, 'precision': 0.5631167051531274, 'recall': 0.5858104456345502, 'f1': 0.5282203820861393}
+2026-08-19 16:47:36,881 - INFO - trainer - Model saved to /Users/sk-training/main/src/mediwatch/output/mediwatch.joblib
+2026-08-19 16:48:09,753 - INFO - monitor - 🚀 Starting drift detection...
+2026-08-19 16:48:10,897 - INFO - monitor - report: ['__annotations__', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_timestamp', 'include_tests', 'items', 'metadata', 'metrics', 'run', 'set_batch_size', 'set_dataset_id', 'set_model_id', 'set_reference_id', 'tags']
+2026-08-19 16:48:10,897 - INFO - monitor - available methods: ['include_tests', 'items', 'metadata', 'metrics', 'run', 'set_batch_size', 'set_dataset_id', 'set_model_id', 'set_reference_id', 'tags']
+2026-08-19 16:48:10,897 - INFO - monitor - Trying to access computed metrics from _inner_suite...
+2026-08-19 16:48:10,897 - INFO - monitor - Trying to expand DataDriftPreset to get actual metrics...
+2026-08-19 16:48:10,897 - INFO - monitor - Preset expansion failed: DataDriftPreset.generate_metrics() missing 1 required positional argument: 'context'
+2026-08-19 16:48:10,897 - INFO - monitor - Looking for specific drift metrics in computed suite...
+2026-08-19 16:48:10,897 - INFO - monitor - Trying to force calculation...
+2026-08-19 16:48:10,897 - INFO - monitor - Trying newer Evidently API methods...
+2026-08-19 16:48:10,897 - INFO - monitor - Trying manual calculation approach...
+2026-08-19 16:48:10,897 - INFO - monitor - DataDriftTable not available for manual import
+2026-08-19 16:48:10,897 - INFO - monitor - All extraction methods failed, creating minimal structure
+2026-08-19 16:48:10,898 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:48:10,898 - INFO - monitor - Drift Summary:
+2026-08-19 16:48:10,898 - INFO - monitor - Dataset drift detected: None
+2026-08-19 16:48:10,898 - INFO - monitor - Drifted features: 0
+2026-08-19 16:48:10,898 - INFO - monitor - Drift percentage: 0.00%
+2026-08-19 16:50:17,672 - INFO - monitor - Starting drift detection...
+2026-08-19 16:50:18,848 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:50:18,848 - INFO - monitor - Drift Summary:
+2026-08-19 16:50:18,848 - INFO - monitor - Dataset drift detected: True
+2026-08-19 16:50:18,848 - INFO - monitor - Drifted features: 32
+2026-08-19 16:50:18,848 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 16:51:05,308 - INFO - monitor - Starting drift detection...
+2026-08-19 16:51:06,509 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:51:06,509 - INFO - monitor - Drift Summary:
+2026-08-19 16:51:06,509 - INFO - monitor - Dataset drift detected: True
+2026-08-19 16:51:06,509 - INFO - monitor - Drifted features: 32
+2026-08-19 16:51:06,509 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 16:54:20,117 - INFO - clientApp - Running drift detection
+2026-08-19 16:54:22,847 - INFO - clientApp - Running drift detection
+2026-08-19 16:56:04,127 - INFO - clientApp - Running drift detection
+2026-08-19 16:56:05,284 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:56:05,284 - INFO - monitor - Drift Summary:
+2026-08-19 16:56:05,284 - INFO - monitor - Dataset drift detected: True
+2026-08-19 16:56:05,284 - INFO - monitor - Drifted features: 32
+2026-08-19 16:56:05,284 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 16:59:11,197 - INFO - clientApp - Running drift detection
+2026-08-19 16:59:12,376 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:59:12,376 - INFO - monitor - Drift Summary:
+2026-08-19 16:59:12,376 - INFO - monitor - Dataset drift detected: True
+2026-08-19 16:59:12,376 - INFO - monitor - Drifted features: 32
+2026-08-19 16:59:12,376 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 16:59:12,377 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-19 16:59:31,990 - INFO - clientApp - Running drift detection
+2026-08-19 16:59:33,230 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 16:59:33,230 - INFO - monitor - Drift Summary:
+2026-08-19 16:59:33,230 - INFO - monitor - Dataset drift detected: True
+2026-08-19 16:59:33,230 - INFO - monitor - Drifted features: 32
+2026-08-19 16:59:33,230 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 16:59:33,232 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-19 17:00:58,469 - INFO - clientApp - Running drift detection
+2026-08-19 17:00:59,643 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 17:00:59,643 - INFO - monitor - Drift Summary:
+2026-08-19 17:00:59,643 - INFO - monitor - Dataset drift detected: True
+2026-08-19 17:00:59,643 - INFO - monitor - Drifted features: 32
+2026-08-19 17:00:59,643 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 17:00:59,645 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-19 17:01:03,245 - INFO - clientApp - Running drift detection (JSON)
+2026-08-19 17:01:04,425 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 17:01:04,425 - INFO - monitor - Drift Summary:
+2026-08-19 17:01:04,425 - INFO - monitor - Dataset drift detected: True
+2026-08-19 17:01:04,425 - INFO - monitor - Drifted features: 32
+2026-08-19 17:01:04,425 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 17:05:11,022 - INFO - clientApp - Running drift detection
+2026-08-19 17:05:12,242 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 17:05:12,242 - INFO - monitor - Drift Summary:
+2026-08-19 17:05:12,242 - INFO - monitor - Dataset drift detected: True
+2026-08-19 17:05:12,242 - INFO - monitor - Drifted features: 32
+2026-08-19 17:05:12,242 - INFO - monitor - Drift percentage: 80.00%
+2026-08-19 17:05:12,244 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-19 17:06:23,891 - INFO - clientApp - Running prediction
+2026-08-19 17:06:23,898 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:06:23,905 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:06:40,412 - INFO - clientApp - Running prediction
+2026-08-19 17:06:40,422 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:06:40,429 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:06:49,731 - INFO - clientApp - Running prediction
+2026-08-19 17:06:49,740 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:06:49,746 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:09,071 - INFO - clientApp - Running prediction
+2026-08-19 17:07:09,076 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:09,082 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:21,412 - INFO - clientApp - Running prediction
+2026-08-19 17:07:21,420 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:21,426 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:36,671 - INFO - clientApp - Running prediction
+2026-08-19 17:07:36,679 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:36,684 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:42,731 - INFO - clientApp - Running prediction
+2026-08-19 17:07:42,739 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:42,744 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:49,770 - INFO - clientApp - Running prediction
+2026-08-19 17:07:49,777 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:49,781 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:56,231 - INFO - clientApp - Running prediction
+2026-08-19 17:07:56,239 - INFO - patientReadmissionPredictor - Loaded model successfully
+2026-08-19 17:07:56,245 - INFO - patientReadmissionPredictor - Model predicted result: in more than 30 days.
+2026-08-19 17:07:58,292 - INFO - clientApp - Running drift detection
+2026-08-19 17:07:59,514 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 17:07:59,514 - INFO - monitor - Drift Summary:
+2026-08-19 17:07:59,514 - INFO - monitor - Dataset drift detected: True
+2026-08-19 17:07:59,514 - INFO - monitor - Drifted features: 35
+2026-08-19 17:07:59,514 - INFO - monitor - Drift percentage: 87.50%
+2026-08-19 17:07:59,516 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-19 17:10:21,760 - INFO - clientApp - Running drift detection
+2026-08-19 17:10:23,003 - INFO - monitor - Drift summary saved to /Users/sk-training/main/src/mediwatch/output/driftResults.json
+2026-08-19 17:10:23,003 - INFO - monitor - Drift Summary:
+2026-08-19 17:10:23,003 - INFO - monitor - Dataset drift detected: True
+2026-08-19 17:10:23,003 - INFO - monitor - Drifted features: 35
+2026-08-19 17:10:23,003 - INFO - monitor - Drift percentage: 87.50%
+2026-08-19 17:10:23,005 - INFO - clientApp - Drift summary: dataset_drift=True
+2026-08-20 02:55:17,911 - INFO - trainer - Starting to train the model
+2026-08-20 02:55:17,925 - WARNING - urllib3.connectionpool - Retrying (JitteredRetry(total=4, connect=4, read=5, redirect=5, status=5)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff515c5790>: Failed to establish a new connection: [Errno 111] Connection refused')': /api/2.0/mlflow/experiments/create
+2026-08-20 02:55:21,933 - WARNING - urllib3.connectionpool - Retrying (JitteredRetry(total=3, connect=3, read=5, redirect=5, status=5)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff5157bc70>: Failed to establish a new connection: [Errno 111] Connection refused')': /api/2.0/mlflow/experiments/create
+2026-08-20 02:55:21,999 - INFO - trainer - Loading data from /opt/airflow/mediwatch/output/diabetic_data_processed.csv
+2026-08-20 02:55:22,286 - INFO - trainer - Training with hyper params: {'n_estimators': 10, 'max_depth': 10, 'min_samples_split': 2}
+2026-08-20 02:55:22,586 - INFO - trainer - Model metrics: {'accuracy': 0.5858104456345502, 'precision': 0.5631167051531274, 'recall': 0.5858104456345502, 'f1': 0.5282203820861393}
+2026-08-20 02:55:24,391 - INFO - trainer - Model saved to /opt/airflow/mediwatch/output/mediwatch.joblib
+2026-08-20 02:57:33,131 - INFO - evaluator - Evaluating model at /opt/airflow/mediwatch/output/mediwatch.joblib
+2026-08-20 02:57:33,269 - INFO - evaluator - Evaluation metrics: {'accuracy': 0.5858104456345502, 'precision': 0.5631167051531274, 'recall': 0.5858104456345502, 'f1': 0.5282203820861393}
+2026-08-20 03:00:17,352 - INFO - monitor - Starting drift detection...
+2026-08-20 03:00:19,044 - INFO - monitor - Drift summary saved to /opt/airflow/mediwatch/output/driftResults.json
+2026-08-20 03:00:19,044 - INFO - monitor - Drift Summary:
+2026-08-20 03:00:19,044 - INFO - monitor - Dataset drift detected: False
+2026-08-20 03:00:19,045 - INFO - monitor - Drifted features: 0
+2026-08-20 03:00:19,045 - INFO - monitor - Drift percentage: 0.00%

@@ -19,7 +19,7 @@ import seaborn as sns
 
 def preprocess_data():
   dfRaw=pd.read_csv(os.getenv('RAW_INPUT_FILE_PATH'))
-  dfRaw.info()
+  #dfRaw.info()
 
   """Observation:
   1. The dataset contains columns with numeric and object datatypes, except for max_glu_serum and A1Cresult all other columns have full non-null values.
@@ -139,16 +139,16 @@ def preprocess_data():
   #plt.show()
   
   objectCols = ['race', 'gender', 'age','diag_1','diag_2','diag_3','metformin', 'repaglinide', 'nateglinide', 'chlorpropamide', 'glimepiride', 'acetohexamide', 'glipizide', 'glyburide', 'tolbutamide', 'pioglitazone', 'rosiglitazone', 'acarbose', 'miglitol', 'troglitazone', 'tolazamide', 'insulin', 'glyburide-metformin', 'glipizide-metformin', 'glimepiride-pioglitazone', 'metformin-rosiglitazone', 'metformin-pioglitazone', 'change', 'diabetesMed']
-  print(objectCols)
+  #print(objectCols)
   #Perform ohe for all category columns
   map={}
   for col in objectCols:
     dfDataClean[col]=dfDataClean[col].astype('category')
     code_to_label = dict(enumerate(dfDataClean[col].cat.categories))
     dfDataClean[col+'_encoded']=dfDataClean[col].cat.codes
-    print(f"{col} --- {code_to_label}")
+    #print(f"{col} ---> {code_to_label}")
     map[col]=code_to_label
-  print(map)
+  #print(map)
 
   #Perform label encoding for target column
   #from sklearn.preprocessing import LabelEncoder
@@ -169,6 +169,7 @@ def preprocess_data():
   1. Heatmap does not show any strong co-relation between columns
 
   """
+  print(f"Saving preprocessed data to {os.getenv('PREPROCESSED_FILE_PATH')}")
   dfDataCleanCorr.to_csv(os.getenv('PREPROCESSED_FILE_PATH'), index=False)
 
 if __name__ == "__main__":
