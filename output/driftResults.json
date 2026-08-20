@@ -1,16 +1,16 @@
 {
   "dataset_drift": true,
-  "number_of_drifted_features": 37,
-  "share_of_drifted_features": 0.925,
+  "number_of_drifted_features": 39,
+  "share_of_drifted_features": 0.975,
   "metrics_list": [
     {
       "feature_name": "acarbose_encoded",
-      "drift_score": 0.8265965041698711,
+      "drift_score": 0.22091050929010742,
       "drift_detected": true
     },
     {
       "feature_name": "acetohexamide_encoded",
-      "drift_score": 0.5640795627786145,
+      "drift_score": 0.7249296320025723,
       "drift_detected": true
     },
     {
@@ -20,22 +20,22 @@
     },
     {
       "feature_name": "admission_type_id",
-      "drift_score": 0.6605605018294065,
+      "drift_score": 0.2409645720630459,
       "drift_detected": true
     },
     {
       "feature_name": "age_encoded",
-      "drift_score": 0.5993344709066885,
+      "drift_score": 0.4590003239301382,
       "drift_detected": true
     },
     {
       "feature_name": "change_encoded",
-      "drift_score": 0.4866760010676519,
+      "drift_score": 0.3438348887802366,
       "drift_detected": true
     },
     {
       "feature_name": "chlorpropamide_encoded",
-      "drift_score": 0.5639660203182048,
+      "drift_score": 0.7247832050299784,
       "drift_detected": true
     },
     {
@@ -45,7 +45,7 @@
     },
     {
       "feature_name": "diag_1_encoded",
-      "drift_score": 0.8325546111576977,
+      "drift_score": 0.832421460453865,
       "drift_detected": true
     },
     {
@@ -55,82 +55,82 @@
     },
     {
       "feature_name": "diag_3_encoded",
-      "drift_score": 0.8325546111576978,
+      "drift_score": 0.8322713024598632,
       "drift_detected": true
     },
     {
       "feature_name": "discharge_disposition_id",
-      "drift_score": 0.40931328431204367,
+      "drift_score": 0.676282441708319,
       "drift_detected": true
     },
     {
       "feature_name": "gender_encoded",
-      "drift_score": 0.4423427865815137,
-      "drift_detected": true
-    },
-    {
-      "feature_name": "glimepiride-pioglitazone_encoded",
-      "drift_score": 0.002063287833764941,
+      "drift_score": 0.08115623489728906,
       "drift_detected": false
     },
     {
+      "feature_name": "glimepiride-pioglitazone_encoded",
+      "drift_score": 0.49399366004474465,
+      "drift_detected": true
+    },
+    {
       "feature_name": "glimepiride_encoded",
-      "drift_score": 0.1342482096252541,
+      "drift_score": 0.6454050416627864,
       "drift_detected": true
     },
     {
       "feature_name": "glipizide-metformin_encoded",
-      "drift_score": 0.8321524541908163,
+      "drift_score": 0.23351691928324145,
       "drift_detected": true
     },
     {
       "feature_name": "glipizide_encoded",
-      "drift_score": 0.5621800531705439,
+      "drift_score": 0.7138725613407478,
       "drift_detected": true
     },
     {
       "feature_name": "glyburide-metformin_encoded",
-      "drift_score": 0.049668391697976544,
-      "drift_detected": false
+      "drift_score": 0.6504906829449094,
+      "drift_detected": true
     },
     {
       "feature_name": "glyburide_encoded",
-      "drift_score": 0.8184473079720519,
+      "drift_score": 0.7564642787272325,
       "drift_detected": true
     },
     {
       "feature_name": "insulin_encoded",
-      "drift_score": 0.34727564319480714,
+      "drift_score": 0.5275347653529503,
       "drift_detected": true
     },
     {
       "feature_name": "metformin-pioglitazone_encoded",
-      "drift_score": 0.002063287833764941,
-      "drift_detected": false
+      "drift_score": 0.49399366004474465,
+      "drift_detected": true
     },
     {
       "feature_name": "metformin-rosiglitazone_encoded",
-      "drift_score": 0.8325092146208698,
+      "drift_score": 0.2344563093507558,
       "drift_detected": true
     },
     {
       "feature_name": "metformin_encoded",
-      "drift_score": 0.5675619898078749,
+      "drift_score": 0.7121975409554558,
       "drift_detected": true
     },
     {
       "feature_name": "miglitol_encoded",
-      "drift_score": 0.8325092146208698,
+      "drift_score": 0.7697880585391583,
       "drift_detected": true
     },
     {
       "feature_name": "nateglinide_encoded",
-      "drift_score": 0.5480409002798184,
+      "drift_score": 0.7156896846037545,
       "drift_detected": true
     },
     {
       "feature_name": "num_lab_procedures",
-      "drift_score": 0.8116077626600489,
+      "drift_score": 0.7887859179380087,
       "drift_detected": true
     },
     {
@@ -140,17 +140,17 @@
     },
     {
       "feature_name": "num_procedures",
-      "drift_score": 0.7052791407473626,
+      "drift_score": 0.719805342307702,
       "drift_detected": true
     },
     {
       "feature_name": "number_diagnoses",
-      "drift_score": 0.7654158180849072,
+      "drift_score": 0.4425190266745109,
       "drift_detected": true
     },
     {
       "feature_name": "number_emergency",
-      "drift_score": 0.20108931463508012,
+      "drift_score": 0.5895673535147496,
       "drift_detected": true
     },
     {
@@ -165,17 +165,17 @@
     },
     {
       "feature_name": "pioglitazone_encoded",
-      "drift_score": 0.15993252379563155,
+      "drift_score": 0.6497579826302813,
       "drift_detected": true
     },
     {
       "feature_name": "race_encoded",
-      "drift_score": 0.35989264397146875,
+      "drift_score": 0.453679665569109,
       "drift_detected": true
     },
     {
       "feature_name": "repaglinide_encoded",
-      "drift_score": 0.5359363911116888,
+      "drift_score": 0.708229721658171,
       "drift_detected": true
     },
     {
@@ -185,22 +185,22 @@
     },
     {
       "feature_name": "time_in_hospital",
-      "drift_score": 0.6675218745049796,
+      "drift_score": 0.577176775218279,
       "drift_detected": true
     },
     {
       "feature_name": "tolazamide_encoded",
-      "drift_score": 0.5627622573316156,
+      "drift_score": 0.1866776368708755,
       "drift_detected": true
     },
     {
       "feature_name": "tolbutamide_encoded",
-      "drift_score": 0.5631623087532315,
+      "drift_score": 0.1875064941352255,
       "drift_detected": true
     },
     {
       "feature_name": "troglitazone_encoded",
-      "drift_score": 0.8324305725711872,
+      "drift_score": 0.7696975764447525,
       "drift_detected": true
     }
   ]
