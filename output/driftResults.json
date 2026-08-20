@@ -1,6 +1,207 @@
 {
-  "dataset_drift": false,
-  "number_of_drifted_features": 0,
-  "share_of_drifted_features": 0.0,
-  "metrics_list": []
+  "dataset_drift": true,
+  "number_of_drifted_features": 37,
+  "share_of_drifted_features": 0.925,
+  "metrics_list": [
+    {
+      "feature_name": "acarbose_encoded",
+      "drift_score": 0.8265965041698711,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "acetohexamide_encoded",
+      "drift_score": 0.5640795627786145,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "admission_source_id",
+      "drift_score": 0.5903265596002595,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "admission_type_id",
+      "drift_score": 0.6605605018294065,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "age_encoded",
+      "drift_score": 0.5993344709066885,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "change_encoded",
+      "drift_score": 0.4866760010676519,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "chlorpropamide_encoded",
+      "drift_score": 0.5639660203182048,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "diabetesMed_encoded",
+      "drift_score": 0.29545784747200826,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "diag_1_encoded",
+      "drift_score": 0.8325546111576977,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "diag_2_encoded",
+      "drift_score": 0.8325546111576977,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "diag_3_encoded",
+      "drift_score": 0.8325546111576978,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "discharge_disposition_id",
+      "drift_score": 0.40931328431204367,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "gender_encoded",
+      "drift_score": 0.4423427865815137,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "glimepiride-pioglitazone_encoded",
+      "drift_score": 0.002063287833764941,
+      "drift_detected": false
+    },
+    {
+      "feature_name": "glimepiride_encoded",
+      "drift_score": 0.1342482096252541,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "glipizide-metformin_encoded",
+      "drift_score": 0.8321524541908163,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "glipizide_encoded",
+      "drift_score": 0.5621800531705439,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "glyburide-metformin_encoded",
+      "drift_score": 0.049668391697976544,
+      "drift_detected": false
+    },
+    {
+      "feature_name": "glyburide_encoded",
+      "drift_score": 0.8184473079720519,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "insulin_encoded",
+      "drift_score": 0.34727564319480714,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "metformin-pioglitazone_encoded",
+      "drift_score": 0.002063287833764941,
+      "drift_detected": false
+    },
+    {
+      "feature_name": "metformin-rosiglitazone_encoded",
+      "drift_score": 0.8325092146208698,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "metformin_encoded",
+      "drift_score": 0.5675619898078749,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "miglitol_encoded",
+      "drift_score": 0.8325092146208698,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "nateglinide_encoded",
+      "drift_score": 0.5480409002798184,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "num_lab_procedures",
+      "drift_score": 0.8116077626600489,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "num_medications",
+      "drift_score": 0.7641006718210016,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "num_procedures",
+      "drift_score": 0.7052791407473626,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "number_diagnoses",
+      "drift_score": 0.7654158180849072,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "number_emergency",
+      "drift_score": 0.20108931463508012,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "number_inpatient",
+      "drift_score": 0.6557930370588957,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "number_outpatient",
+      "drift_score": 0.24652537874801497,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "pioglitazone_encoded",
+      "drift_score": 0.15993252379563155,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "race_encoded",
+      "drift_score": 0.35989264397146875,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "repaglinide_encoded",
+      "drift_score": 0.5359363911116888,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "rosiglitazone_encoded",
+      "drift_score": 0.14866740255364227,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "time_in_hospital",
+      "drift_score": 0.6675218745049796,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "tolazamide_encoded",
+      "drift_score": 0.5627622573316156,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "tolbutamide_encoded",
+      "drift_score": 0.5631623087532315,
+      "drift_detected": true
+    },
+    {
+      "feature_name": "troglitazone_encoded",
+      "drift_score": 0.8324305725711872,
+      "drift_detected": true
+    }
+  ]
 }

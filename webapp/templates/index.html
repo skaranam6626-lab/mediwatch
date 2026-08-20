@@ -77,9 +77,15 @@
             text-decoration: none;
         }
 
-        /* Three-column layout */
+        /* Three-column layout — CSS Grid (Bootstrap col-lg-4 only kicks in at 992px) */
         .form-layout {
-            align-items: flex-start;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+            gap: 1.25rem;
+            align-items: start;
+        }
+        .form-column {
+            min-width: 0;
         }
         .col-form {
             display: flex;
@@ -327,7 +333,10 @@
         .loader-text { color: var(--secondary); font-weight: 600; font-size: 0.9rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        @media (max-width: 991px) {
+        @media (max-width: 767px) {
+            .form-layout {
+                grid-template-columns: 1fr;
+            }
             .col-result { position: static; margin-top: 0.5rem; }
             .result-body { min-height: 240px; }
         }
@@ -353,10 +362,10 @@
 
 <div class="container-fluid layout-container pb-5 px-3 px-md-4">
     <form id="patient-form">
-        <div class="row form-layout">
+        <div class="form-layout">
 
             <!-- Column 1: Demographics & Diagnoses -->
-            <div class="col-lg-4 col-form">
+            <div class="form-column col-form">
                 <div class="form-card">
                     <h5 class="section-title">
                         <span class="section-icon">👤</span> Demographics
@@ -447,7 +456,7 @@
             </div>
 
             <!-- Column 2: Clinical & Medications -->
-            <div class="col-lg-4 col-form">
+            <div class="form-column col-form">
                 <div class="form-card">
                     <h5 class="section-title">
                         <span class="section-icon">🏥</span> Admission &amp; Clinical
@@ -705,7 +714,7 @@
             </div>
 
             <!-- Column 3: Live prediction -->
-            <div class="col-lg-4 col-result">
+            <div class="form-column col-result">
                 <div class="result-shell" id="result-shell">
                     <div class="result-header">
                         <h5>Prediction Result</h5>
